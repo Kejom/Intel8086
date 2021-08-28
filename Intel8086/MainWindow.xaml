@@ -1,0 +1,77 @@
+﻿<Window x:Class="Intel8086.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Intel8086"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="DefaultStyle" TargetType="{x:Type FrameworkElement}">
+            <Setter Property="Control.VerticalAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="RightAlignStyle" TargetType="{x:Type FrameworkElement}">
+            <Setter Property="Control.VerticalAlignment" Value="Center"/>
+            <Setter Property="ItemsControl.HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource DefaultStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultStyle}"/>
+        <Style TargetType="Label" BasedOn="{StaticResource RightAlignStyle}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource DefaultStyle}"/>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label>AX</Label>
+        <TextBox Grid.Column="1" Text="{Binding [AX].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="AX" MaxLength="4" TextChanged="RegisterBoxTextChanged"></TextBox>
+        <Label Grid.Column="2" >AH</Label>
+        <TextBox Grid.Column="3" Text="{Binding [AH].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="AH" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Column="4" >AL</Label>
+        <TextBox Grid.Column="5" Text="{Binding [AL].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="AL" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="1">BX</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding [BX].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="BX" MaxLength="4" TextChanged="RegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="1" Grid.Column="2" >BH</Label>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding [BH].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="BH" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="1" Grid.Column="4" >BL</Label>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding [BL].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="BL" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="2">CX</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding [CX].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="CX" MaxLength="4" TextChanged="RegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="2" Grid.Column="2" >CH</Label>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding [CH].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="CH" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="2" Grid.Column="4" >CL</Label>
+        <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding [CL].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="CL" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="3">DX</Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding [DX].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="DX" MaxLength="4" TextChanged="RegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="3" Grid.Column="2" >DH</Label>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding [DH].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DH" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="3" Grid.Column="4" >DL</Label>
+        <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding [DL].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="DL" MaxLength="2" TextChanged="HalfRegisterBoxTextChanged"></TextBox>
+        <Label Grid.Row="5" Grid.Column="0">Rejestr 1</Label>
+        <ComboBox Name="Register1" Grid.Row="5" Grid.Column="1" SelectionChanged="Command_Selected"/>
+        <Label Grid.Row="5" Grid.Column="2">Operacja</Label>
+        <ComboBox Grid.Row="5" Grid.Column="3" Name="Command" SelectionChanged="Command_Selected">
+            <ComboBoxItem IsSelected="True">MOV</ComboBoxItem>
+            <ComboBoxItem>XCHG</ComboBoxItem>
+        </ComboBox>
+        <Label Grid.Row="5" Grid.Column="4">Rejestr 2</Label>
+        <ComboBox Name="Register2" Grid.Row="5" Grid.Column="5"/>
+        <Button Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" MinHeight="30" MinWidth="150" Click="Button_Click">Wykonaj Operacje</Button>
+    </Grid>
+</Window>
