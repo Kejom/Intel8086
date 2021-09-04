@@ -38,6 +38,18 @@ namespace Intel8086
             return memory[index1] + memory[index2];
         }
 
+        public string Get(string indexOrBase, string disp)
+        {
+            var index = convertHex(indexOrBase) + convertHex(disp);
+            return getValue(index);
+        }
+
+        public string Get(string i, string b, string disp)
+        {
+            var index = convertHex(i) + convertHex(b) + convertHex(disp);
+            return getValue(index);
+        }
+
         public void Mov(string indexOrBase, string disp, string value)
         {
             var index = convertHex(indexOrBase) + convertHex(disp);
@@ -55,7 +67,7 @@ namespace Intel8086
             var index = convertHex(indexOrBase) + convertHex(disp);
             var memVal = getValue(index);
             saveValue(index, value);
-            return value;
+            return memVal;
         }
 
         public string Xchg(string i, string b, string disp, string value)
@@ -63,7 +75,7 @@ namespace Intel8086
             var index = convertHex(i) + convertHex(b) + convertHex(disp);
             var memVal = getValue(index);
             saveValue(index, value);
-            return value;
+            return memVal;
         }
     }
 }
