@@ -187,6 +187,7 @@ namespace Intel8086
             var registerValue = Registers[selectedRegister].Value;
 
             stack.Push(registerValue);
+            Registers["SP"].Value = stack.GetTop();
         }
 
         private void PopCommand()
@@ -194,6 +195,7 @@ namespace Intel8086
             var selectedRegister = this.Register1.Text;
             var popedValue = stack.Pop();
             Registers[selectedRegister].Value = popedValue;
+            Registers["SP"].Value = stack.GetTop();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -212,8 +214,30 @@ namespace Intel8086
             if (selectedAction == "POP")
                 PopCommand();
 
-            MessageBox.Show(string.Format("Wykonano operację \"{0}\"", selectedAction), "Sukces!");
+            AddOperationToLog();
 
+        }
+
+        private void AddOperationToLog()
+        {
+            string startRegister = this.Register1.Text;
+            string targetRegister = this.Register2.Text;
+            string selectedAction = this.Command.Text;
+
+
+            var log = string.Format("{0} {1} {2}", startRegister, selectedAction, targetRegister);
+            if (selectedAction == "PUSH" || selectedAction == "POP")
+                log = string.Format("{0} {1}", startRegister, selectedAction);
+
+            LogsBox.Items.Add(log);
+            //LogsBox.SelectedIndex = LogsBox.Items.Count - 1;
+            //LogsBox.ScrollIntoView(LogsBox.SelectedItem);
+            if(VisualTreeHelper.GetChildrenCount(LogsBox) > 0)
+            {
+                Border border = (Border)VisualTreeHelper.GetChild(LogsBox, 0);
+                ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                scrollViewer.ScrollToBottom();
+            }
         }
 
         private void RegisterBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -303,13 +327,17 @@ namespace Intel8086
             {
                 item.Value.Value = new string('0', item.Value.Value.Length);
             }
+            memory = new IntelMemory();
+            stack = new IntelStack();
+            LogsBox.Items.Clear();
+            LogsBox.Items.Add("Logs:");
         }
 
         private bool Validate()
         {
             foreach (var item in Registers)
             {
-                if (item.Value.Value.Length != 4 ||!Helpers.validateHex(item.Value.Value))
+                if ((item.Value.Value[1] == 'X'&& item.Value.Value.Length != 4) ||!Helpers.validateHex(item.Value.Value))
                 {
                     MessageBox.Show("Wszystkie pola muszą zawierać poprawne dane, akceptowane są tylko znaki hexadecymalne (0-9, A-F). \nKażde pole musi zawierać 4 znaki.", "Błąd Walidacji!");
                     return false;

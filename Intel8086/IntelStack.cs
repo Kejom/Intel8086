@@ -30,5 +30,10 @@ namespace Intel8086
             var val1 = memoryStack.Pop();
             return val1 + val2;
         }
+
+        public string GetTop()
+        {
+            return memoryStack.Count.ToString("X4");
+        }
     }
 }
