@@ -186,14 +186,33 @@ namespace Intel8086
             var selectedRegister = this.Register1.Text;
             var registerValue = Registers[selectedRegister].Value;
 
-            stack.Push(registerValue);
+            try
+            {
+                stack.Push(registerValue);
+            }
+            catch (Exception e)
+            {
+
+            }
+
             Registers["SP"].Value = stack.GetTop();
         }
 
         private void PopCommand()
         {
             var selectedRegister = this.Register1.Text;
-            var popedValue = stack.Pop();
+            var popedValue = "";
+            try
+            {
+                popedValue = stack.Pop();
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message, "Błąd stosu");
+                return;
+            }
+             
             Registers[selectedRegister].Value = popedValue;
             Registers["SP"].Value = stack.GetTop();
         }
@@ -230,8 +249,7 @@ namespace Intel8086
                 log = string.Format("{0} {1}", startRegister, selectedAction);
 
             LogsBox.Items.Add(log);
-            //LogsBox.SelectedIndex = LogsBox.Items.Count - 1;
-            //LogsBox.ScrollIntoView(LogsBox.SelectedItem);
+
             if(VisualTreeHelper.GetChildrenCount(LogsBox) > 0)
             {
                 Border border = (Border)VisualTreeHelper.GetChild(LogsBox, 0);

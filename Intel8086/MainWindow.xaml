@@ -83,7 +83,7 @@
         <TextBox Grid.Row="5" Grid.Column="9" Text="{Binding [DISP].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  x:Name="DISP" MaxLength="4" ></TextBox>
         <Border Grid.Column="1" Grid.Row="5"  Background="LightCyan" BorderBrush="DarkCyan" BorderThickness="3"></Border>
         <Button Grid.Row="5" Grid.Column="1"  Click="Button_Click_1">Reset</Button>
-        <ListBox Name="LogsBox" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="Black" Foreground="LightSeaGreen" Focusable="False" BorderBrush="DarkCyan" BorderThickness="3">
+        <ListBox Name="LogsBox" Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="Black" Foreground="LightSeaGreen" Focusable="False" BorderBrush="DarkCyan" BorderThickness="3" ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <ListBoxItem>Logs:</ListBoxItem>
         </ListBox>
         <Border Name="ControlsBorder" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="6" Background="LightCyan" BorderBrush="DarkCyan" BorderThickness="3"></Border>
